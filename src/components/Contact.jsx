@@ -3,7 +3,7 @@ import { Send, Loader2 } from 'lucide-react';
 import Toast from './ui/Toast';
 import TypewriterText from './ui/TypewriterText';
 
-const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || '7bbc8204-017f-4cf6-b720-5c060298fc76';
+const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || 'df65ef18-7739-44ad-add9-772587b3ac9e';
 
 const Contact = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
