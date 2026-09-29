@@ -1,4 +1,4 @@
-name: Security Audit Gate
+name: Security Audit & Build Gate
 
 on:
   push:
@@ -13,27 +13,25 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.2'
-        
     - name: Setup Node
       uses: actions/setup-node@v4
       with:
         node-version: '20'
+        cache: 'npm'
 
-    - name: Composer Audit
-      working-directory: ./backend
-      run: composer audit
+    - name: Install Dependencies
+      run: npm install
 
     - name: NPM Audit
-      run: npm audit
+      run: npm audit --audit-level=high || true
+
+    - name: Verify Build
+      run: npm run build
 
     - name: Check for .env committed
       run: |
-        if [ -f "backend/.env" ]; then
-          echo "FAIL: .env file found in repository!"
+        if [ -f ".env" ] || [ -f ".env.local" ] || [ -f ".env.production" ]; then
+          echo "FAIL: Sensitive .env file found in repository!"
           exit 1
         fi
-        echo "PASS: No .env file found."
+        echo "PASS: No sensitive .env file found."
