@@ -1,4 +1,5 @@
 import axios from 'axios';
+import initialProjects from './initialProjects.json';
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || '/api',
@@ -8,56 +9,56 @@ const api = axios.create({
   }
 });
 
-/**
- * Build the public URL for a storage asset.
- * Handles: Cloudinary URLs, local /storage/ paths, and relative paths.
- */
 export const getAssetUrl = (path) => {
   if (!path) return '';
-  if (path.startsWith('http') || path.startsWith('data:')) return path;
+  if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('data:')) return path;
 
-  // Extract base URL from VITE_API_URL by removing /api
-  const apiUrl = import.meta.env.VITE_API_URL || '';
-  const baseUrl = apiUrl.replace(/\/api$/, '');
-
-  const cleanPath = path.replace(/^\//, '');
-  // If it's already a full storage path, strip it to avoid /storage/storage/
-  const finalPath = cleanPath.startsWith('storage/') ? cleanPath.replace('storage/', '') : cleanPath;
-  
-  return `${baseUrl}/storage/${finalPath}`;
+  const cleanPath = path.replace(/^\//, '').replace(/^storage\//, '');
+  return `/${cleanPath}`;
 };
 
-// ─── Request interceptor: attach admin key + rewrite admin routes ───
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('admin_token');
-  if (token) {
-    config.headers['X-ADMIN-KEY'] = token;
+api.defaults.adapter = async (config) => {
+  const url = config.url || '';
+  const method = (config.method || 'get').toLowerCase();
+
+  // Public projects
+  if (url.includes('/projects') && method === 'get') {
+    return {
+      data: { status: 'success', data: initialProjects },
+      status: 200,
+      statusText: 'OK',
+      headers: {},
+      config
+    };
   }
 
-  // Rewrite /admin/* → /be3dol/*
-  if (config.url && config.url.startsWith('/admin')) {
-    config.url = config.url.replace('/admin', '/be3dol');
-  }
-
-  if (config.url === '/login') {
-    config.url = '/be3dol/login';
-  }
-
-  return config;
-});
-
-// ─── Response interceptor: unwrap { status, data } envelope ─────────
-api.interceptors.response.use(
-  (response) => {
-    // Unwrap Laravel's { status: 'success', data: ... } envelope
-    if (response.data && response.data.status === 'success' && 'data' in response.data) {
-      response.data = response.data.data;
+  // Public contact form
+  if (url.includes('/contact') && method === 'post') {
+    const body = typeof config.data === 'string' ? JSON.parse(config.data) : (config.data || {});
+    try {
+      const stored = localStorage.getItem('portfolio_messages');
+      const messages = stored ? JSON.parse(stored) : [];
+      messages.unshift({ ...body, id: Date.now(), created_at: new Date().toISOString() });
+      localStorage.setItem('portfolio_messages', JSON.stringify(messages));
+    } catch {
+      // Ignore storage errors in private browsing
     }
-    return response;
-  },
-  (error) => {
-    return Promise.reject(error);
+    return {
+      data: { status: 'success', message: 'Message envoyé avec succès' },
+      status: 200,
+      statusText: 'OK',
+      headers: {},
+      config
+    };
   }
-);
+
+  return {
+    data: { status: 'success', data: [] },
+    status: 200,
+    statusText: 'OK',
+    headers: {},
+    config
+  };
+};
 
 export default api;

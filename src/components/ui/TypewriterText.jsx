@@ -1,24 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-/**
- * A professional letter-by-letter typewriter reveal component.
- * @param {string} text - The text to reveal.
- * @param {number} delay - Initial delay before starting (ms).
- * @param {number} speed - Typing speed (ms per character).
- * @param {string} className - Optional styling.
- * @param {boolean} once - Should it only play once (default: true).
- */
 const TypewriterText = ({ text, delay = 0, speed = 30, className = "", once = true }) => {
   const [displayedText, setDisplayedText] = useState("");
   const [hasStarted, setHasStarted] = useState(false);
-  const [isComplete, setIsComplete] = useState(false);
   const elementRef = useRef(null);
 
+  const isComplete = hasStarted && displayedText.length >= text.length;
+
   useEffect(() => {
+    let timeout;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && (!once || !hasStarted)) {
-          setTimeout(() => setHasStarted(true), delay);
+          timeout = setTimeout(() => setHasStarted(true), delay);
         }
       },
       { threshold: 0.1 }
@@ -28,21 +22,21 @@ const TypewriterText = ({ text, delay = 0, speed = 30, className = "", once = tr
       observer.observe(elementRef.current);
     }
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      if (timeout) clearTimeout(timeout);
+    };
   }, [delay, hasStarted, once]);
 
   useEffect(() => {
-    if (!hasStarted || isComplete) return;
+    if (!hasStarted || displayedText.length >= text.length) return;
 
-    if (displayedText.length < text.length) {
-      const timeout = setTimeout(() => {
-        setDisplayedText(text.slice(0, displayedText.length + 1));
-      }, speed);
-      return () => clearTimeout(timeout);
-    } else {
-      setIsComplete(true);
-    }
-  }, [displayedText, hasStarted, isComplete, text, speed]);
+    const timeout = setTimeout(() => {
+      setDisplayedText(text.slice(0, displayedText.length + 1));
+    }, speed);
+
+    return () => clearTimeout(timeout);
+  }, [displayedText, hasStarted, text, speed]);
 
   return (
     <span ref={elementRef} className={className}>

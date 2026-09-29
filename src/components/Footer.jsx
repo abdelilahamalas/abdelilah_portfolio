@@ -4,10 +4,9 @@ const Footer = () => {
   const year = new Date().getFullYear();
 
   return (
-    <footer id="footer" className="py-12 bg-transparent border-t border-black/5">
+    <footer id="footer" className="relative z-10 py-12 bg-transparent">
       <div className="max-w-7xl mx-auto px-6">
 
-        {/* Scroll to top arrow */}
         <div className="flex justify-center mb-8">
           <button
             onClick={() => {
@@ -23,7 +22,7 @@ const Footer = () => {
               };
               requestAnimationFrame(step);
             }}
-            className="w-11 h-11 rounded-full bg-transparent border border-[#4093DB]/40 flex items-center justify-center text-[#4093DB] hover:bg-[#4093DB] hover:text-white transition-all cursor-pointer animate-float"
+            className="w-11 h-11 rounded-full bg-white border border-white flex items-center justify-center text-[#0a0a0c] hover:bg-transparent hover:border-white/20 hover:text-white transition-all cursor-pointer animate-float"
             aria-label="Scroll to top"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -34,26 +33,25 @@ const Footer = () => {
 
         <div className="flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
 
-          <div className="flex flex-col gap-2">
-            <a href="#home" className="text-3xl font-['Caveat',cursive] text-slate-900">
-              A<span className="text-[#4093DB]">.</span>
+          <div className="flex flex-col gap-2 text-white">
+            <a href="#home" className="text-3xl font-['Caveat',cursive] text-white">
+              A<span className="text-white">.</span>
             </a>
-            <p className="text-sm text-slate-500 font-medium">
+            <p className="text-sm text-white font-medium">
               &copy; {year} Abdelilah Amalas. Tous droits réservés.
             </p>
           </div>
 
-
           <div className="flex items-center gap-8">
-            <a href="#home" className="text-[11px] font-extrabold uppercase tracking-widest text-slate-900/80 hover:text-[#4093DB] transition-all relative group">
+            <a href="#home" className="text-[11px] font-extrabold uppercase tracking-widest text-white hover:text-[#4093DB] transition-all relative group">
               Accueil
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full bg-[#4093DB]"></span>
             </a>
-            <a href="#projects" className="text-[11px] font-extrabold uppercase tracking-widest text-slate-900/80 hover:text-[#4093DB] transition-all relative group">
+            <a href="#projects" className="text-[11px] font-extrabold uppercase tracking-widest text-white hover:text-[#4093DB] transition-all relative group">
               Projets
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full bg-[#4093DB]"></span>
             </a>
-            <a href="#skills" className="text-[11px] font-extrabold uppercase tracking-widest text-slate-900/80 hover:text-[#4093DB] transition-all relative group">
+            <a href="#skills" className="text-[11px] font-extrabold uppercase tracking-widest text-white hover:text-[#4093DB] transition-all relative group">
               Compétences
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full bg-[#4093DB]"></span>
             </a>

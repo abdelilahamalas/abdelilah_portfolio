@@ -4,7 +4,6 @@ import { gsap } from '../lib/gsap';
 
 const navLinks = [
   { name: 'Accueil', href: '#home' },
-  { name: 'Services', href: '#services' },
   { name: 'Projets', href: '#projects' },
   { name: 'Compétences', href: '#skills' },
   { name: 'À propos', href: '#about' },
@@ -65,17 +64,17 @@ const Navbar = () => {
     <>
       <header
         ref={navRef}
-        className="bg-[#ffffff] fixed top-0 w-full z-[100] transition-all duration-300 ease-in-out backdrop-blur-md shadow-sm border-b border-black/5"
+        className={`fixed top-0 w-full z-[100] transition-all duration-300 ease-in-out backdrop-blur-md border-b ${
+          scrolled ? 'bg-[#0a0a0c]/90 border-zinc-800/80' : 'bg-[#0a0a0c]/80 border-zinc-800/60'
+        }`}
       >
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center">
-          {/* Logo - Flex 1 to push menu to center */}
           <div className="flex-1">
-            <a href="#home" onClick={(e) => scrollToSection(e, '#home')} className="text-4xl font-['Caveat',cursive] tracking-tighter transition-colors text-slate-900">
+            <a href="#home" onClick={(e) => scrollToSection(e, '#home')} className="text-4xl font-['Caveat',cursive] tracking-tighter transition-colors text-white">
               A<span className="text-[#4093DB]">.</span>
             </a>
           </div>
 
-          {/* Centered Menu */}
           <div className="hidden md:flex items-center gap-8 justify-center ">
             {navLinks.map((link, i) => (
               <a
@@ -83,7 +82,7 @@ const Navbar = () => {
                 href={link.href}
                 ref={el => linksRef.current[i] = el}
                 onClick={(e) => scrollToSection(e, link.href)}
-                className="text-[11px] font-extrabold transition-all relative group text-slate-900/80 hover:text-[#4093DB] uppercase tracking-widest"
+                className="text-[11px] font-extrabold transition-all relative group text-zinc-300 hover:text-[#4093DB] uppercase tracking-widest"
               >
                 {link.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full bg-[#4093DB]"></span>
@@ -91,7 +90,6 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* Right Section - Flex 1 to balance the center menu */}
           <div className="flex-1 flex justify-end items-center gap-4">
             <a
               href="#contact"
@@ -102,7 +100,7 @@ const Navbar = () => {
             </a>
 
             <button
-              className="md:hidden focus:outline-none text-slate-900"
+              className="md:hidden focus:outline-none text-white"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle Menu"
             >
@@ -114,7 +112,7 @@ const Navbar = () => {
 
       <div
         ref={mobileMenuRef}
-        className="fixed inset-0 z-[90] w-full min-h-[100vh] bg-white/95 backdrop-blur-2xl md:hidden flex flex-col justify-center items-center opacity-0 pointer-events-none"
+        className="fixed inset-0 z-[90] w-full min-h-[100vh] bg-[#0a0a0c]/95 backdrop-blur-2xl md:hidden flex flex-col justify-center items-center opacity-0 pointer-events-none"
       >
         <div className="flex flex-col items-center gap-6 text-center -mt-10">
           {navLinks.map((link) => (
@@ -122,7 +120,7 @@ const Navbar = () => {
               key={link.name}
               href={link.href}
               onClick={(e) => scrollToSection(e, link.href)}
-              className="text-lg font-extrabold text-slate-800 tracking-[0.2em] hover:text-[#4093DB] transition-colors uppercase w-max relative group"
+              className="text-lg font-extrabold text-white tracking-[0.2em] hover:text-[#4093DB] transition-colors uppercase w-max relative group"
             >
               {link.name}
               <span className="absolute -bottom-2 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full bg-[#4093DB]"></span>

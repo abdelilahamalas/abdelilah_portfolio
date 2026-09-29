@@ -1,4 +1,3 @@
-/** @type {import('tailwindcss').Config} */
 export default {
   content: [
     "./index.html",
@@ -7,20 +6,20 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: '#3D5B82', // Portfolio base — slate blue
-        surface: '#324d70', // Deeper panels / footer band
+        background: '#3D5B82',
+        surface: '#324d70',
         card: {
           DEFAULT: '#37557a',
           raised: '#3f5f88',
           soft: 'rgba(55, 85, 122, 0.82)',
         },
         accent: {
-          DEFAULT: '#1CEDD0', // Vibrant Teal
+          DEFAULT: '#1CEDD0',
           secondary: '#14B8A6',
         },
         content: {
-          primary: '#F8FAFC', // Crisp White
-          muted: '#94A3B8',    // Soft Slate
+          primary: '#F8FAFC',
+          muted: '#94A3B8',
         },
       },
       boxShadow: {

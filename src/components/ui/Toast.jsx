@@ -29,14 +29,13 @@ const Toast = ({ message, type = 'success', onClose, duration = 3000 }) => {
   return (
     <div className="fixed bottom-8 right-8 z-[100] animate-in fade-in slide-in-from-right-8 duration-500">
       <div className={`${style.bg} ${style.border} ${style.shadow} backdrop-blur-md border rounded-xl p-4 flex items-center gap-4 min-w-[300px] relative overflow-hidden group`}>
-        {/* Top accent line */}
         <div className={`absolute top-0 left-0 w-full h-[2px] ${style.accent} opacity-20`} />
         
         <div className="flex-shrink-0">{style.icon}</div>
         
         <div className="flex-1">
           <p className="text-[13px] font-bold text-slate-900 tracking-tight leading-none mb-1">
-            {type === 'success' ? 'Op\u00e9ration r\u00e9ussie' : 'Erreur'}
+            {type === 'success' ? 'Opération réussie' : 'Erreur'}
           </p>
           <p className="text-[11px] font-medium text-slate-500 leading-none">
             {message}
@@ -50,7 +49,6 @@ const Toast = ({ message, type = 'success', onClose, duration = 3000 }) => {
           <X size={14} />
         </button>
 
-        {/* Progress bar animation */}
         <div 
           className={`absolute bottom-0 left-0 h-[2px] ${style.accent} opacity-30 animate-toast-progress`} 
           style={{ animationDuration: `${duration}ms` }}

@@ -1,6 +1,5 @@
 import React from 'react';
 import Hero from '../components/Hero';
-import Services from '../components/Services';
 import Skills from '../components/Skills';
 import Projects from '../components/Projects';
 import About from '../components/About';
@@ -13,7 +12,6 @@ const PortfolioHome = () => {
   return (
     <>
       <Hero />
-      <Services />
       <Skills />
       <Projects />
       <About />
@@ -23,4 +21,3 @@ const PortfolioHome = () => {
 };
 
 export default PortfolioHome;
-

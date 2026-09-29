@@ -8,18 +8,18 @@
 
 @layer base {
   :root {
-    --bg-primary: #F3F4F6;
-    --bg-surface: #ffffff;
+    --bg-primary: #0a0a0c;
+    --bg-surface: #121215;
     --accent: #4093DB;
-    --accent-soft: rgba(64, 147, 219, 0.08);
-    --text-primary: #111827;
-    --text-muted: #6b7280;
-    --border-color: #e5e7eb;
+    --accent-soft: rgba(64, 147, 219, 0.15);
+    --text-primary: #f8fafc;
+    --text-muted: #94a3b8;
+    --border-color: #27272a;
   }
 
   html,
   body {
-    @apply bg-[var(--bg-primary)] text-[var(--text-primary)] antialiased min-h-screen selection:bg-[#CDE3F7] selection:text-slate-900;
+    @apply bg-[var(--bg-primary)] text-[var(--text-primary)] antialiased min-h-screen selection:bg-[#4093DB] selection:text-white;
     font-family: 'Plus Jakarta Sans', sans-serif;
   }
 }
@@ -61,7 +61,6 @@
     animation: shimmer 2.5s infinite linear;
   }
 
-  /* ── Professional Button System ── */
   .btn-primary {
     background-color: #111827;
     color: #ffffff;

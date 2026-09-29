@@ -1,14 +1,9 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
   server: {
-    // REPLICATING SGG CONGÉS ARCHITECTURE:
-    // We use Vite as a high-performance proxy to Apache.
-    // Apache (XAMPP) handles the multi-threaded PHP execution.
-    // This removes the 30s single-thread bottleneck of 'artisan serve'.
     proxy: {
       '/api': {
         target: 'http://127.0.0.1:8000',
