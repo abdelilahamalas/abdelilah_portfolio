@@ -2,6 +2,7 @@ import React from 'react';
 import { Mail, Download, ArrowRight } from 'lucide-react';
 import { GitHubIcon, LinkedInIcon } from './ui/Icons';
 import TypewriterText from './ui/TypewriterText';
+import { getAssetUrl } from '../lib/api';
 
 const Hero = () => {
   const fullText = "Développeur Full Stack";
@@ -53,7 +54,7 @@ const Hero = () => {
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full bg-[#4093DB]"></span>
             </a>
             <a
-              href="/ABDELILAH AMALAS DEV.pdf"
+              href={getAssetUrl('ABDELILAH AMALAS DEV.pdf')}
               download="ABDELILAH AMALAS DEV.pdf"
               target="_blank"
               rel="noopener noreferrer"
@@ -89,7 +90,7 @@ const Hero = () => {
             }}
           >
             <img
-              src="/profile.jpeg"
+              src={getAssetUrl('profile.jpeg')}
               alt="Profile"
               className="h-full w-full object-cover"
               decoding="async"

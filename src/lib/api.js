@@ -14,7 +14,9 @@ export const getAssetUrl = (path) => {
   if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('data:')) return path;
 
   const cleanPath = path.replace(/^\//, '').replace(/^storage\//, '');
-  return `/${cleanPath}`;
+  const base = import.meta.env.BASE_URL || '/';
+  const prefix = base.endsWith('/') ? base : `${base}/`;
+  return `${prefix}${cleanPath}`;
 };
 
 api.defaults.adapter = async (config) => {
